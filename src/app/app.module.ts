@@ -13,12 +13,14 @@ import { MyskillComponent } from './myskill/myskill.component';
 import { AllComponent } from './all/all.component';
 import { AllskillsComponent } from './allskills/allskills.component';
 
-
+import{ AngularFireStorageModule} from 'angularfire2/storage';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { DetailsComponent } from './details/details.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';//
 
 const routes:Routes= [
 
@@ -29,6 +31,8 @@ const routes:Routes= [
   {path:'register',component:RegisterComponent},
   {path:'myskill',component:MyskillComponent},
   {path:'allskills',component:AllskillsComponent},
+  {path:'details/:id',component:DetailsComponent},
+  {path:'userprofile',component:UserprofileComponent}
 ]
 
 @NgModule({
@@ -41,7 +45,9 @@ const routes:Routes= [
     RegisterComponent,
     MyskillComponent,
     AllComponent,
-    AllskillsComponent
+    AllskillsComponent,
+    DetailsComponent,
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,8 @@ const routes:Routes= [
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

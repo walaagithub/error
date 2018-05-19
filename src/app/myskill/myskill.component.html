@@ -1,14 +1,76 @@
-<div class="uk-child-width-1-2@m uk-padding" uk-grid>
-    <div>
-        <div class="uk-card uk-card-default">
-            <div class="uk-card-media-top">
-                <img src="assets/img/myskills.png" alt="">
+<div class=" uk-padding">
+    <table class="uk-table uk-table-small uk-table-divider">
+        <thead>
+            <tr>
+                <div >
+                <th>Table Heading</th>
+                <th>Table Heading</th>
+                <th>Table Heading</th>
+                <th>Table Heading</th>
+                <th>Table Heading</th>
+                <th>Table Heading</th>
+                <th>Table Heading</th>
+                <th>Action</th>
             </div>
-            <div class="uk-card-body">
-                <h3 class="uk-card-title">Media Top</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-            </div>
-        </div>
-    </div>
-    <div>
-   </div>     
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of itemArray">
+                <div *ngIf="item.uid === myUid">
+                    <td>{{item.$key}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.province}}</td>
+                    <td>{{item.skill}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.comments}}</td>
+                    <td>
+                        <button class="uk-button uk-button-primary uk-button-small" type="button" uk-toggle="target: #modal-example"
+                            (click)="editForm(item.$key)">Edite</button>
+                    </td>
+                    <td>
+                        <button class="uk-button uk-button-danger uk-button-small" (click)="onDelete(item.$key)">delete</button>
+                    </td>
+
+                    <!-- This is the modal -->
+                    <div id="modal-example" uk-modal>
+                        <div class="uk-modal-dialog uk-modal-body">
+
+                            <fieldset class="uk-fieldset">
+
+
+
+                                <div class="uk-margin">
+                                    <input class="uk-input" type="text" placeholder="اضف اسمك" name="name" [(ngModel)]="data.name">
+                                </div>
+                                <div class="uk-margin">
+                                    <input class="uk-input" type="text" placeholder="رقم الهاتف" name="phone" [(ngModel)]="data.phone">
+                                </div>
+                                <div class="uk-margin">
+                                    <input class="uk-input" type="text" placeholder="المحافظة" name="province" [(ngModel)]="data.province">
+                                </div>
+                                <div class="uk-margin">
+                                    <input class="uk-input" type="text" placeholder="المهارة" name="skill" [(ngModel)]="data.skill">
+                                </div>
+                                <div class="uk-margin">
+                                    <input class="uk-input" type="text" placeholder="السعر" name="price" [(ngModel)]="data.price">
+                                </div>
+
+                                <div class="uk-margin">
+                                    <textarea class="uk-textarea" rows="5" placeholder="الملاحظات" name="comments" [(ngModel)]="data.comments"></textarea>
+                                </div>
+                            </fieldset>
+                            <p class="uk-text-right">
+                                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                                <button class="uk-button uk-button-primary" type="button" (click)="onEdit(item.$key)">Save</button>
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

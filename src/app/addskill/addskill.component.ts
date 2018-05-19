@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabase,AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import{ AngularFireAuth} from 'angularfire2/auth'
 import { Router} from '@angular/router';
+
+
+import { Path } from '@firebase/database/dist/src/core/util/Path';
 
 
 @Component({
@@ -11,13 +15,6 @@ import { Router} from '@angular/router';
   styleUrls: ['./addskill.component.css']
 })
 export class AddskillComponent implements OnInit {
-//var
-// name :string ='walaa'
-// phone : number
-// province :string
-// skill :string
-// price:number
-// comments :string
 
 //object
 data=
@@ -30,20 +27,38 @@ data=
   comments:''
 
 }
+
+email:string='';
+uid: any;
  
-// items:Observable<any[]>;
 itemList: AngularFireList<any>;
 
-  constructor(public db:AngularFireDatabase ,public router:Router) {
+  constructor( private fire:AngularFireAuth,public db:AngularFireDatabase ,public router:Router) {
     //location to save database
     this.itemList = db.list('skills');
    }
 
   ngOnInit() {
+let user= localStorage.getItem('email')
+this.email=user
+console.log(user);
+console.log('-------------------------');
 
-    console.log(this.data.name);
+
+
+this.uid =localStorage.getItem('uid')
+    console.log('uid : '+ this.uid);
+
+
+    // this.fire.authState.subscribe(auth=>{
+
+    //   if(auth){
+
+    //     this.uid =auth.uid
+    //     console.log('uis: ' + this.uid);
+    //   }
+    // })
   }
-
 
   insertSkill()
   {
@@ -53,10 +68,9 @@ itemList: AngularFireList<any>;
     province:this.data.province,
     skill:this.data.skill,
     price:this.data.price,
-    comments:this.data.comments
-
-
-   
+    comments:this.data.comments,
+    email:this.email,
+    uid:this.uid
    })
 
    this.router.navigate(['/myskill']);
